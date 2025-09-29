@@ -1,4 +1,5 @@
 //@req(token, action)
+import com.hivext.api.server.system.service.utils.EnvironmentStatus;
 if (token == "${TOKEN}") {
     var targetEnv = "${TARGET_ENV}",
         nodeGroup = "${NODE_GROUP}", 
@@ -11,6 +12,16 @@ if (token == "${TOKEN}") {
         certified = ${CERTIFIED},
         build = ${BUILD}, 
         context = "${CONTEXT}";    
+
+
+    var resp = jelastic.env.control.GetEnvInfo(envName, session);
+    if (resp.result != 0) return resp;
+    var status = resp.env.status;
+    var isEnvRunning = status == EnvironmentStatus['ENV_STATUS_TYPE_RUNNING'].getValue() ? true : false;
+
+    if (!isEnvRunning) {
+        return {result: 99, error: "Environment is not running. Current status: " + status, type: "warning"};
+    }
 
     if (action == 'redeploy') {
         if (certified) {
