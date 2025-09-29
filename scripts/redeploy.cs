@@ -20,7 +20,7 @@ if (token == "${TOKEN}") {
     var isEnvRunning = status == EnvironmentStatus['ENV_STATUS_TYPE_RUNNING'].getValue() ? true : false;
 
     if (!isEnvRunning) {
-        return {result: 99, error: "Environment is not running. Current status: " + status, type: "warning"};
+        return {result: 99, error: 'environment is not running', type: "warning"};
     }
 
     if (action == 'redeploy') {
