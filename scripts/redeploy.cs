@@ -20,7 +20,10 @@ if (token == "${TOKEN}") {
     var isEnvRunning = status == EnvironmentStatus['ENV_STATUS_TYPE_RUNNING'].getValue() ? true : false;
 
     if (!isEnvRunning) {
-        return {result: 99, error: 'environment is not running', type: "warning"};
+        if (jelastic.marketplace && jelastic.marketplace.console) {
+            jelastic.marketplace.console.WriteLog(appid, session, "GIT-PUSH-DEPLOY ERROR: environment is not running");
+        }
+        return { result: 0 };
     }
 
     if (action == 'redeploy') {
