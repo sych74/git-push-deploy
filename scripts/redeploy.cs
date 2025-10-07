@@ -21,7 +21,7 @@ if (token == "${TOKEN}") {
 
     if (!isEnvRunning) {
         if (jelastic.marketplace && jelastic.marketplace.console) {
-            jelastic.marketplace.console.WriteLog(appid, session, "GIT-PUSH-DEPLOY ERROR: environment is not running");
+            jelastic.marketplace.console.WriteLog(appid, session, "GIT-PUSH-DEPLOY: environment is not running");
         }
         return { result: 0 };
     }
